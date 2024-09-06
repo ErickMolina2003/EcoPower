@@ -1,4 +1,4 @@
-import Login from "@/components/Login";
+import Auth from "@/components/auth/Auth";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
@@ -23,6 +23,6 @@ export default function RootLayout() {
   }
 
   return (
-    <Login />
+    <Auth />
   );
 }
