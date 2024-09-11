@@ -4,7 +4,7 @@ interface Props {
   id: number;
   backgroundColor: string;
   title: string;
-  description: string;
+  description?: string;
   backgroundImage: ImageSourcePropType;
 }
 
@@ -22,12 +22,18 @@ export default function TournamentCard({
         resizeMode="cover"
         className="flex items justify-end h-full"
       >
-        <Text className="text-white font-bold text-sm text-center">
+        <Text
+          className={`text-white font-bold text-sm  ${
+            !description ? "text-left pb-3 pl-1" : "text-center pb-0"
+          }`}
+        >
           {title}
         </Text>
-        <Text className="text-white font-normal text-xs pb-3 text-center">
-          {description}
-        </Text>
+        {description && (
+          <Text className="text-white font-normal text-xs pb-3 text-center">
+            {description}
+          </Text>
+        )}
       </ImageBackground>
     </View>
   );

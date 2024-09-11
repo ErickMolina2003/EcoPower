@@ -21,7 +21,7 @@ const tournaments = [
   },
   {
     id: 3,
-    backgroundColor: "bg-app-blue-500",
+    backgroundColor: "bg-app-blue-700",
     title: "Tienes un regalo",
     description: "¡Encuéntralo!",
     backgroundImage: giftImg,
@@ -42,7 +42,7 @@ const tournaments = [
   },
   {
     id: 6,
-    backgroundColor: "bg-app-blue-500",
+    backgroundColor: "bg-app-blue-700",
     title: "Tienes un regalo",
     description: "¡Encuéntralo!",
     backgroundImage: giftImg,
