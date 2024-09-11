@@ -9,10 +9,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'app-yellow': {
+          400: '#EEC32D',
+          500: '#eec22c',
+        },
+        'app-orange': {
+          500: '#F65A2A',
+        },
         'app-blue': {
           500: '#4F93FF',
+          600: '#1A73E8',
+          700: '#1A15FF',
         },
         'app-gray': {
+          400: '#424242',
           500: '#757575',
           600: '#737373',
           700: '#9E9E9E',

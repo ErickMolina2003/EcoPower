@@ -7,7 +7,7 @@ export default function ScreenLayout({ children }: { children: ReactElement }) {
 
   return (
     <View
-      className="flex-1 h-full justify-evenly bg-white px-10"
+      className="flex-1 h-full justify-evenly bg-white px-5"
       style={{
         paddingTop: insets.top,
         paddingBottom: insets.bottom,

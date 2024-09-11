@@ -3,6 +3,11 @@ import { Image, Pressable, Text, TextInput, View } from "react-native";
 import AppLogo from "@/assets/images/logo.png";
 import AppLogo2 from "@/assets/images/logo2.png";
 import GoogleLogo from "@/assets/images/google.png";
+import { FIREBASE_AUTH } from "@/FirebaseConfig";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 enum REGISTER_STEPS {
   EMAIL,
@@ -13,10 +18,12 @@ export default function Register() {
   const [registerStep, setRegisterStep] = useState<REGISTER_STEPS>(
     REGISTER_STEPS.EMAIL
   );
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const auth = FIREBASE_AUTH;
 
   function handleChangeStep() {
     if (!email) return;
@@ -26,6 +33,28 @@ export default function Register() {
 
   function handleCreateAccount() {
     console.log(email, name, password, confirmPassword);
+    if (!email || !name || !password || !confirmPassword) return;
+    if (password !== confirmPassword) return;
+
+    handleSignUp();
+  }
+
+  async function handleSignUp() {
+    setLoading(true);
+
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      alert("Error al crear cuenta\nIntente nuevamente");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return registerStep === REGISTER_STEPS.EMAIL ? (
@@ -51,6 +80,7 @@ export default function Register() {
         <TextInput
           className="w-full p-2 bg-white border border-app-gray-500 rounded-lg shadow-md"
           placeholder="Correo Electrónico"
+          autoCapitalize="none"
           value={email}
           onChangeText={setEmail}
         />
@@ -135,6 +165,7 @@ export default function Register() {
           <Pressable
             className="flex items-center p-3 bg-app-blue-500 rounded-lg"
             onPress={handleCreateAccount}
+            disabled={loading}
           >
             <Text className="text-white font-normal text-sm">CONTINUAR</Text>
           </Pressable>

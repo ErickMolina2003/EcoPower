@@ -2,10 +2,35 @@ import { useState } from "react";
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import AppLogo from "@/assets/images/logo.png";
 import GoogleLogo from "@/assets/images/google.png";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "@/FirebaseConfig";
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  function login() {
+    console.log(email, password);
+    if (!email || !password) return;
+
+    handleSignIn();
+  }
+
+  async function handleSignIn() {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      alert("Error al iniciar sesión\nE-mail o contraseña no válidos");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <View className="flex flex-grow justify-center gap-8">
@@ -19,6 +44,7 @@ export default function Login() {
         <TextInput
           className="w-full p-2 bg-white border border-app-gray-500 rounded-lg shadow-md"
           placeholder="Correo Electrónico"
+          autoCapitalize="none"
           value={email}
           onChangeText={setEmail}
         />
@@ -37,9 +63,7 @@ export default function Login() {
         <View className="w-full">
           <Pressable
             className="flex items-center p-3 bg-app-blue-500 rounded-lg"
-            onPress={() => {
-              console.log(email, password);
-            }}
+            onPress={login}
           >
             <Text className="text-white font-normal text-sm">INGRESAR</Text>
           </Pressable>
