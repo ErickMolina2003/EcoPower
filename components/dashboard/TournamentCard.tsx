@@ -1,4 +1,10 @@
-import { ImageBackground, ImageSourcePropType, Text, View } from "react-native";
+import {
+  ImageBackground,
+  ImageSourcePropType,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 
 interface Props {
   id: number;
@@ -6,6 +12,7 @@ interface Props {
   title: string;
   description?: string;
   backgroundImage: ImageSourcePropType;
+  onClick?: () => void;
 }
 
 export default function TournamentCard({
@@ -14,27 +21,30 @@ export default function TournamentCard({
   title,
   description,
   backgroundImage,
+  onClick,
 }: Props) {
   return (
-    <View className={`flex w-28 m-2 h-full rounded-md ${backgroundColor}`}>
-      <ImageBackground
-        source={backgroundImage}
-        resizeMode="cover"
-        className="flex items justify-end h-full"
-      >
-        <Text
-          className={`text-white font-bold text-sm  ${
-            !description ? "text-left pb-3 pl-1" : "text-center pb-0"
-          }`}
+    <Pressable onPress={onClick}>
+      <View className={`flex w-28 m-2 h-full rounded-md ${backgroundColor}`}>
+        <ImageBackground
+          source={backgroundImage}
+          resizeMode="cover"
+          className="flex items justify-end h-full"
         >
-          {title}
-        </Text>
-        {description && (
-          <Text className="text-white font-normal text-xs pb-3 text-center">
-            {description}
+          <Text
+            className={`text-white font-bold text-sm  ${
+              !description ? "text-left pb-3 pl-1" : "text-center pb-0"
+            }`}
+          >
+            {title}
           </Text>
-        )}
-      </ImageBackground>
-    </View>
+          {description && (
+            <Text className="text-white font-normal text-xs pb-3 text-center">
+              {description}
+            </Text>
+          )}
+        </ImageBackground>
+      </View>
+    </Pressable>
   );
 }

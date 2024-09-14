@@ -42,3 +42,13 @@ export const ControllerIcon = (props) => (
 export const TrophyIcon = (props) => (
   <Ionicons name="trophy-outline" size={24} {...props} />
 );
+
+export const DiamondIcon = (props) => (
+  <Ionicons name="diamond-outline" size={24} {...props} />
+);
+
+export const RibbonIcon = (props) => (
+  <Ionicons name="ribbon-outline" size={24} {...props} />
+
+);
+

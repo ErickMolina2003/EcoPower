@@ -4,6 +4,7 @@ import rankingImg from "@/assets/images/ranking.png";
 import dailyImg from "@/assets/images/daily2.png";
 import giftImg from "@/assets/images/gift2.png";
 import TournamentCard from "@/components/dashboard/TournamentCard";
+import { useRouter } from "expo-router";
 
 const tournaments = [
   {
@@ -51,6 +52,12 @@ const librarySections = [
 ];
 
 export default function Library() {
+  const router = useRouter();
+
+  function goToDetailLibrary() {
+    router.push("/(auth)/libraryDetail");
+  }
+
   return (
     <View className="flex-1 px-6 pt-6 bg-white">
       <View className="mb-5">
@@ -75,6 +82,7 @@ export default function Library() {
                     backgroundColor={tournament.backgroundColor}
                     title={tournament.title}
                     backgroundImage={tournament.backgroundImage}
+                    onClick={goToDetailLibrary}
                   />
                 ))}
               </ScrollView>

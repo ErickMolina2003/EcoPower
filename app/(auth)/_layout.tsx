@@ -12,6 +12,7 @@ import {
 import { Image, Pressable, Text, View } from "react-native";
 import AppLogo2 from "@/assets/images/logo2.png";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { FIREBASE_AUTH } from "@/FirebaseConfig";
 
 export default function Layout() {
   const insets = useSafeAreaInsets();
@@ -43,6 +44,11 @@ export default function Layout() {
             </Pressable>
             <Pressable>
               <ChatIcon />
+            </Pressable>
+            <Pressable>
+              <Text className="text-center w-6 h-6 rounded-full bg-app-yellow-500">
+                {FIREBASE_AUTH.currentUser?.email?.at(0)}
+              </Text>
             </Pressable>
           </View>
 
@@ -94,6 +100,12 @@ export default function Layout() {
               title: "Ajustes",
               tabBarIcon: () => <SettingsIcon color={"#4F93FF"} />,
               tabBarActiveTintColor: "#424242",
+            }}
+          />
+          <Tabs.Screen
+            name="libraryDetail"
+            options={{
+              href: null,
             }}
           />
         </Tabs>
