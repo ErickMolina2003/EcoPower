@@ -1,8 +1,12 @@
 import { FIREBASE_AUTH } from "@/FirebaseConfig";
 import { Text, TextInput, View } from "react-native";
 import { SearchIcon } from "../Icons";
+import useAppStore from "@/store";
 
 export default function WelcomeScreen() {
+  const store = useAppStore();
+  console.log(store.user);
+
   return (
     <View className="flex flex-col justify-center gap-5 py-5">
       <View className="flex flex-row justify-between px-6">
@@ -11,12 +15,12 @@ export default function WelcomeScreen() {
             Bienvenido de nuevo
           </Text>
           <Text className="text-base font-semibold text-white">
-            {FIREBASE_AUTH.currentUser?.email}
+            {store.user.name}
           </Text>
         </View>
         <View className="flex items-center justify-center">
           <Text className="text-center w-6 h-6 rounded-full bg-app-yellow-500">
-            {FIREBASE_AUTH.currentUser?.email?.at(0)}
+            {store.user.name.at(0)}
           </Text>
         </View>
       </View>

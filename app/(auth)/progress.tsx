@@ -1,13 +1,16 @@
 import { DiamondIcon, FlashIcon, RibbonIcon } from "@/components/Icons";
 import { FIREBASE_AUTH } from "@/FirebaseConfig";
+import useAppStore from "@/store";
 import { ScrollView, Text, View } from "react-native";
 
 export default function Progress() {
+  const { user } = useAppStore();
+
   return (
     <View className="flex-1 bg-app-blue-500 pt-20">
       <View className="flex items-center justify-end -mb-10 z-20">
         <Text className="text-center justify-end items-center w-20 h-20 text-7xl rounded-full bg-app-yellow-500 border-4 border-app-blue-500">
-          {FIREBASE_AUTH.currentUser?.email?.at(0)}
+          {user.name.at(0)}
         </Text>
       </View>
       <ScrollView
@@ -16,7 +19,7 @@ export default function Progress() {
       >
         <View>
           <Text className="text-app-gray-800 font-semibold text-base text-center justify-center items-center">
-            {FIREBASE_AUTH.currentUser?.email}
+            {user.name}
           </Text>
         </View>
         <View className="flex flex-row justify-between rounded-md my-5 bg-app-yellow-400 py-2">
@@ -56,10 +59,10 @@ export default function Progress() {
               >
                 <View className="flex flex-row items-center gap-3">
                   <Text className="text-center justify-end items-center w-16 h-16 text-6xl rounded-full bg-app-yellow-500 border-4 border-app-blue-500">
-                    {FIREBASE_AUTH.currentUser?.email?.at(0)}
+                    {user.name.at(0)}
                   </Text>
                   <Text className="text-app-gray-900 font-bold text-sm text-center justify-center items-center">
-                    {FIREBASE_AUTH.currentUser?.email}
+                    {user.name}
                   </Text>
                 </View>
                 <View>

@@ -1,8 +1,11 @@
-import { FIREBASE_AUTH } from "@/FirebaseConfig";
+import { UserStore } from "@/constants/types";
+import { FIREBASE_AUTH, FIREBASE_DB } from "@/FirebaseConfig";
+import useAppStore from "@/store";
 import { useFonts } from "expo-font";
 import { Stack, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { onAuthStateChanged, User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import "react-native-reanimated";
@@ -18,6 +21,7 @@ export default function RootLayout() {
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
   const segments = useSegments();
+  const store = useAppStore();
 
   useEffect(() => {
     if (loaded) {
@@ -26,7 +30,18 @@ export default function RootLayout() {
   }, [loaded]);
 
   useEffect(() => {
-    const suscriber = onAuthStateChanged(FIREBASE_AUTH, (user) => {
+    const suscriber = onAuthStateChanged(FIREBASE_AUTH, async (user) => {
+      if (user) {
+        const userDocRef = doc(FIREBASE_DB, "users", user?.uid);
+        const docSnap = await getDoc(userDocRef);
+
+        if (docSnap.exists()) {
+          console.log("user docSnap", docSnap.data());
+          setUser(docSnap.data() as User);
+          store.setUser(docSnap.data() as UserStore);
+        }
+      }
+
       console.log("onAuthStateChanged", user);
       setUser(user);
       if (initializing) setInitializing(false);

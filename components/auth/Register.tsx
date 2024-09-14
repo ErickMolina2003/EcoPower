@@ -3,11 +3,12 @@ import { Image, Pressable, Text, TextInput, View } from "react-native";
 import AppLogo from "@/assets/images/logo.png";
 import AppLogo2 from "@/assets/images/logo2.png";
 import GoogleLogo from "@/assets/images/google.png";
-import { FIREBASE_AUTH } from "@/FirebaseConfig";
+import { FIREBASE_AUTH, FIREBASE_DB } from "@/FirebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 enum REGISTER_STEPS {
   EMAIL,
@@ -32,7 +33,6 @@ export default function Register() {
   }
 
   function handleCreateAccount() {
-    console.log(email, name, password, confirmPassword);
     if (!email || !name || !password || !confirmPassword) return;
     if (password !== confirmPassword) return;
 
@@ -43,14 +43,24 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const response = await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log(response);
+      if (userCredential) {
+        const newDoc = {
+          name,
+          email,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        };
+        await setDoc(
+          doc(FIREBASE_DB, "users", userCredential.user.uid),
+          newDoc
+        );
+      }
     } catch (error) {
-      console.log(error);
       alert("Error al crear cuenta\nIntente nuevamente");
     } finally {
       setLoading(false);
