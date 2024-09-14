@@ -2,6 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "react-native";
 import GoogleLogo from "@/assets/images/play.png";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const HomeIcon = (props) => (
   <Ionicons name="home-outline" size={24} {...props} />
@@ -49,6 +50,24 @@ export const DiamondIcon = (props) => (
 
 export const RibbonIcon = (props) => (
   <Ionicons name="ribbon-outline" size={24} {...props} />
-
 );
 
+export const PersonIcon = (props) => (
+  <Ionicons name="person-outline" size={24} {...props} />
+);
+
+export const ChevRightIcon = (props) => (
+  <Ionicons name="chevron-forward" size={24} {...props} />
+);
+
+export const SwitchOffIcon = (props) => (
+  <MaterialCommunityIcons
+    name="toggle-switch-off-outline"
+    size={24}
+    {...props}
+  />
+);
+
+export const BuildIcon = (props) => (
+  <Ionicons name="build-outline" size={24} {...props} />
+);
