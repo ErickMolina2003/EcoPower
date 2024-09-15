@@ -9,6 +9,7 @@ interface StoreType {
 
 const useAppStore = create<StoreType>()((set) => ({
     user: {
+        uid: "",
         createdAt: Timestamp.fromDate(new Date()),
         email: "",
         name: "",

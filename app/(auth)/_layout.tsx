@@ -116,6 +116,18 @@ export default function Layout() {
               href: null,
             }}
           />
+          <Tabs.Screen
+            name="match"
+            options={{
+              href: null,
+            }}
+          />
+          <Tabs.Screen
+            name="completeMatch/[id]"
+            options={{
+              href: null,
+            }}
+          />
         </Tabs>
       </>
     </View>

@@ -3,6 +3,7 @@ import TournamentCard from "./TournamentCard";
 import rankingImg from "@/assets/images/ranking.png";
 import dailyImg from "@/assets/images/daily.png";
 import giftImg from "@/assets/images/gift.png";
+import { useRouter } from "expo-router";
 
 const tournaments = [
   {
@@ -50,6 +51,12 @@ const tournaments = [
 ];
 
 export default function Tournaments() {
+  const router = useRouter();
+
+  function goToMatch() {
+    router.push("/(auth)/match");
+  }
+
   return (
     <View className="mb-5">
       <Text className="font-semibold text-base text-app-gray-400 mb-3">
@@ -68,6 +75,7 @@ export default function Tournaments() {
             title={tournament.title}
             description={tournament.description}
             backgroundImage={tournament.backgroundImage}
+            onClick={goToMatch}
           />
         ))}
       </ScrollView>

@@ -1,10 +1,29 @@
 import { DiamondIcon, FlashIcon, RibbonIcon } from "@/components/Icons";
-import { FIREBASE_AUTH } from "@/FirebaseConfig";
+import { Game } from "@/constants/types";
+import { FIREBASE_AUTH, FIREBASE_DB } from "@/FirebaseConfig";
 import useAppStore from "@/store";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 export default function Progress() {
   const { user } = useAppStore();
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    const getProgress = async () => {
+      const userMatchDocRef = doc(FIREBASE_DB, "matches", user.uid);
+      const docSnap = await getDoc(userMatchDocRef);
+      if (docSnap.exists()) {
+        const docData = docSnap.data();
+        setGames(docData.games);
+      } else {
+        setGames([]);
+      }
+    };
+
+    getProgress();
+  }, []);
 
   return (
     <View className="flex-1 bg-app-blue-500 pt-20">
@@ -52,26 +71,34 @@ export default function Progress() {
             Partidas Recientes
           </Text>
           <View className="flex flex-col gap-3">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <View
-                key={i}
-                className="flex flex-row justify-between items-center p-3 bg-app-gray-100"
-              >
-                <View className="flex flex-row items-center gap-3">
-                  <Text className="text-center justify-end items-center w-16 h-16 text-6xl rounded-full bg-app-yellow-500 border-4 border-app-blue-500">
-                    {user.name.at(0)}
-                  </Text>
-                  <Text className="text-app-gray-900 font-bold text-sm text-center justify-center items-center">
-                    {user.name}
-                  </Text>
+            {games.length > 0 ? (
+              games.map((game, i) => (
+                <View
+                  key={i}
+                  className="flex flex-row justify-between items-center p-3 bg-app-gray-100"
+                >
+                  <View className="flex flex-row items-center gap-3">
+                    <Text className="text-center justify-end items-center w-16 h-16 text-6xl rounded-full bg-app-yellow-500 border-4 border-app-blue-500">
+                      {user.name.at(0)}
+                    </Text>
+                    <Text className="text-app-gray-900 font-bold text-sm text-center justify-center items-center">
+                      {user.name}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text className="text-app-gray-900 font-bold text-2xl text-center justify-center items-center">
+                      +{game.total}
+                    </Text>
+                  </View>
                 </View>
-                <View>
-                  <Text className="text-app-gray-900 font-bold text-2xl text-center justify-center items-center">
-                    {i % 2 == 0 ? "+" : "-"}50
-                  </Text>
-                </View>
+              ))
+            ) : (
+              <View className="flex flex-row justify-center items-center p-3 bg-app-gray-100">
+                <Text className="text-app-gray-900 font-bold text-sm text-center justify-center items-center">
+                  No hay partidas recientes
+                </Text>
               </View>
-            ))}
+            )}
           </View>
         </View>
       </ScrollView>

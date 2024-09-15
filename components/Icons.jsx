@@ -71,3 +71,19 @@ export const SwitchOffIcon = (props) => (
 export const BuildIcon = (props) => (
   <Ionicons name="build-outline" size={24} {...props} />
 );
+
+export const HeartIcon = (props) => (
+  <Ionicons name="heart-outline" size={24} {...props} />
+);
+
+export const CloseIcon = (props) => (
+  <Ionicons name="close-outline" size={24} {...props} />
+);
+
+export const StarFilledIcon = (props) => (
+  <AntDesign name="star" size={24} {...props} />
+);
+
+export const StarNotFilledIcon = (props) => (
+  <AntDesign name="staro" size={24} {...props} />
+);

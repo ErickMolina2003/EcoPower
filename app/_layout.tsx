@@ -38,7 +38,7 @@ export default function RootLayout() {
         if (docSnap.exists()) {
           console.log("user docSnap", docSnap.data());
           setUser(docSnap.data() as User);
-          store.setUser(docSnap.data() as UserStore);
+          store.setUser({ uid: user?.uid, ...docSnap.data() } as UserStore);
         }
       }
 

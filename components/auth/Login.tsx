@@ -13,7 +13,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   function login() {
-    console.log(email, password);
     if (!email || !password) return;
 
     handleSignIn();
@@ -23,9 +22,7 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
     } catch (error) {
-      console.log(error);
       alert("Error al iniciar sesión\nE-mail o contraseña no válidos");
     } finally {
       setLoading(false);

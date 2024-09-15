@@ -5,7 +5,6 @@ import useAppStore from "@/store";
 
 export default function WelcomeScreen() {
   const store = useAppStore();
-  console.log(store.user);
 
   return (
     <View className="flex flex-col justify-center gap-5 py-5">

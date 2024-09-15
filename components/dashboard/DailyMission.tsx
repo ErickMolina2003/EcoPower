@@ -19,7 +19,7 @@ export default function DailyMission() {
             <Text className="font-bold text-sm text-white">Gana 20 EXP</Text>
             <View className="w-full bg-white border border-gray-300 rounded-lg h-4 justify-center">
               <View
-                className="absolute left-0 top-0 h-full bg-yellow-500 rounded-lg"
+                className="absolute left-0 top-0 h-full bg-app-yellow-500 rounded-lg"
                 style={{ width: `${percentageCompleted}%` }}
               />
               <View
